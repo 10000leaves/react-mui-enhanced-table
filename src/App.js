@@ -1,23 +1,24 @@
-import logo from './logo.svg';
+import * as React from 'react';
 import './App.css';
+import FullWidthTabs from './FullWidthTabs';
 
 function App() {
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          テスト画面：ヘッダー
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
+      <main  className="App-main">
+        <FullWidthTabs/>
+      </main>
+      <footer className="App-footer">
+        <p>
+          テスト画面：フッター
+        </p>
+      </footer>
     </div>
   );
 }
