@@ -144,8 +144,7 @@ const headCells = [
 ];
 
 function EnhancedTableHead(props) {
-  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
-    props;
+  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -177,7 +176,11 @@ function EnhancedTableHead(props) {
           </TableCell>
         ))}
       </TableRow>
-      <TableRow>
+      <TableRow
+        hover
+        selected={numSelected > 0 ? true : false}
+        onClick={onSelectAllClick}
+      >
         <TableCell padding="checkbox">
           <Checkbox
             color="primary"
@@ -214,6 +217,7 @@ EnhancedTableHead.propTypes = {
 };
 
 export default function EnhancedTable(props) {
+  const { handleChangeIndustry } = props;
   const [order, setOrder] = React.useState('desc');
   const [orderBy, setOrderBy] = React.useState('occurrences');
   const [selected, setSelected] = React.useState([]);
@@ -229,12 +233,12 @@ export default function EnhancedTable(props) {
   const handleSelectAllClick = (event) => {
     let newSelected = [];
 
-    if (event.target.checked) {
+    // allをcheckか、全ての項目をcheckされてない時更新する
+    if (event.target.checked || !(selected.length === rows.length)) {
       newSelected = rows.map((n) => n.industry);
-    } else {
-      // 何もしない
     }
-    props.handleChangeIndustry(newSelected); // 親state更新
+
+    handleChangeIndustry(newSelected); // 親state更新
     setSelected(newSelected);
   };
 
@@ -255,7 +259,7 @@ export default function EnhancedTable(props) {
       );
     }
 
-    props.handleChangeIndustry(newSelected); // 親state更新
+    handleChangeIndustry(newSelected); // 親state更新
     setSelected(newSelected);
   };
 
@@ -355,6 +359,9 @@ export default function EnhancedTable(props) {
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
+        showFirstButton
+        showLastButton
+        labelRowsPerPage="ページに表示する行数："
       />
     </div>
   );
