@@ -159,6 +159,7 @@ function AppResult(props) {
 
   return (
     <div>
+      <h2>業種別単語分析一覧</h2>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs
           value={tabValue}
@@ -174,43 +175,42 @@ function AppResult(props) {
       {years.map((year, index) => (
         <TabPanel value={tabValue} index={index} key={index}>
           {/* tab start */}
-          <h2>業種別単語分析一覧</h2>
           <EnhancedTable handleChangeIndustry={handleChangeIndustry}/>
           <SelectIndustry selected={selectedIndustry} handleSearchIndustry={handleSearchIndustry} loading={loading} handleLoading={handleLoading} selectedYear={year} />
-          <br/>
-          {
-            loading ?(
-              <div>
-                <h2>銘柄別詳細一覧</h2>
-                <Box
-                  sx={{
-                    width: '100%',
-                    height: 500,
-                    borderRadius: 1,
-                    backgroundColor: '#e0e0e0',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
-                  <CircularProgress sx={{ padding: 1, margin: 2 }}/>
-                </Box>
-              </div>
-            ):(
-              searchedIndustry.length > 0 ?(
-                <div>
-                  <h2>銘柄別詳細一覧</h2>
-                  <ResultData numSearched={searchedIndustry.length} searchedYears={searchedYears} />
-                  <br/>
-                  <BasicTable searchedYears={searchedYears} handleSelectRow={handleSelectRow}/>
-                </div>
-              ):
-                <></>
-            )
-          }
           {/* tab end */}
         </TabPanel>
       ))}
+      <br/>
+      {
+        loading ?(
+          <div>
+            <h2>銘柄別詳細一覧</h2>
+            <Box
+              sx={{
+                width: '100%',
+                height: 500,
+                borderRadius: 1,
+                backgroundColor: '#e0e0e0',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <CircularProgress sx={{ padding: 1, margin: 2 }}/>
+            </Box>
+          </div>
+        ):(
+          searchedIndustry.length > 0 ?(
+            <div>
+              <h2>銘柄別詳細一覧</h2>
+              <ResultData numSearched={searchedIndustry.length} searchedYears={searchedYears} />
+              <br/>
+              <BasicTable searchedYears={searchedYears} handleSelectRow={handleSelectRow}/>
+            </div>
+          ):
+            <></>
+        )
+      }
     </div>
   );
 }
